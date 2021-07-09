@@ -1,5 +1,9 @@
 console.log('Tic Tac Toe');
 
+// Event Listeners
+let announce = document.querySelector('#announcer');
+document.querySelector('#reset').addEventListener('click', () => displayController.render());
+
 let turn = 'x';
 
 const Player = (mark, isHuman) => {
@@ -37,14 +41,19 @@ const gameBoard = (() => {
 
     function checkWin() {
         let p = gameBoard.positions;
-        if ((p[1] === p[0]) && (p[2] === p[0]) && p[0] != undefined) console.log('win');
-        if ((p[3] === p[0]) && (p[6] === p[0]) && p[0] != undefined) console.log('win');
-        if ((p[4] === p[0]) && (p[8] === p[0]) && p[0] != undefined) console.log('win');
-        if ((p[4] === p[1]) && (p[7] === p[1]) && p[1] != undefined) console.log('win');
-        if ((p[5] === p[2]) && (p[8] === p[2]) && p[2] != undefined) console.log('win');
-        if ((p[4] === p[3]) && (p[5] === p[3]) && p[3] != undefined) console.log('win');
-        if ((p[7] === p[6]) && (p[8] === p[6]) && p[6] != undefined) console.log('win');
-        if ((p[4] === p[6]) && (p[2] === p[6]) && p[6] != undefined) console.log('win');
+        if ((p[1] === p[0]) && (p[2] === p[0]) && p[0] != undefined) return _announceWinner((p[0]));
+        if ((p[3] === p[0]) && (p[6] === p[0]) && p[0] != undefined) return _announceWinner((p[0]));
+        if ((p[4] === p[0]) && (p[8] === p[0]) && p[0] != undefined) return _announceWinner((p[0]));
+        if ((p[4] === p[1]) && (p[7] === p[1]) && p[1] != undefined) return _announceWinner((p[1]));
+        if ((p[5] === p[2]) && (p[8] === p[2]) && p[2] != undefined) return _announceWinner((p[2]));
+        if ((p[4] === p[3]) && (p[5] === p[3]) && p[3] != undefined) return _announceWinner((p[3]));
+        if ((p[7] === p[6]) && (p[8] === p[6]) && p[6] != undefined) return _announceWinner((p[6]));
+        if ((p[4] === p[6]) && (p[2] === p[6]) && p[6] != undefined) return _announceWinner((p[6]));
+        announce.textContent = `Now playing: ${turn}.`;
+    }
+
+    function _announceWinner(winner) {
+        announce.textContent = `${winner} has won.`;
     }
 
     return {
@@ -72,7 +81,6 @@ const displayController = (() => {
             item.classList.add('item');
             item.setAttribute('id', i);
             item.addEventListener('click', () => {
-                // _add(i, 'x');
                 if (turn === 'x') {
                     playerX.play(i);
                 } else {
@@ -82,7 +90,10 @@ const displayController = (() => {
             });
             grid.appendChild(item);
         }
-        console.log('Created new grid.')
+        console.log('Created new grid.');
+        gameBoard.reset();
+        console.log('Reset gameboard object.');
+        announce.textContent = `Now playing: ${turn}.`;
     }
 
     function _add(position, value) {
@@ -104,7 +115,6 @@ const displayController = (() => {
     };
 })();
 
-gameBoard.reset();
 displayController.render();
 
 const playerX = Player('x', 'yes');
