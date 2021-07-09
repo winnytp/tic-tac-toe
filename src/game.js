@@ -37,17 +37,14 @@ const gameBoard = (() => {
 
     function checkWin() {
         let p = gameBoard.positions;
-        // Logic is faulty, only checks if game grids are full (3 in a row) and then puts a win.
-        // It's because the checks only evaluate to a boolean true/false -- if gameboard position exists, then true.
-        // Any grid row/column that becomes full will result in a win.
-        // Must modify to check the value of the position -- not just whether the position is filled.
-        if (p[0] && p[1] && p[2] === p[0]) console.log('win');
-        if (p[0] && p[3] && p[6] === p[0]) console.log('win');
-        if (p[0] && p[4] && p[8] === p[0]) console.log('win');
-        if (p[1] && p[4] && p[7] === p[1]) console.log('win');
-        if (p[2] && p[5] && p[8] === p[2]) console.log('win');
-        if (p[3] && p[4] && p[5] === p[3]) console.log('win');
-        if (p[6] && p[7] && p[8] === p[6]) console.log('win');
+        if ((p[1] === p[0]) && (p[2] === p[0]) && p[0] != undefined) console.log('win');
+        if ((p[3] === p[0]) && (p[6] === p[0]) && p[0] != undefined) console.log('win');
+        if ((p[4] === p[0]) && (p[8] === p[0]) && p[0] != undefined) console.log('win');
+        if ((p[4] === p[1]) && (p[7] === p[1]) && p[1] != undefined) console.log('win');
+        if ((p[5] === p[2]) && (p[8] === p[2]) && p[2] != undefined) console.log('win');
+        if ((p[4] === p[3]) && (p[5] === p[3]) && p[3] != undefined) console.log('win');
+        if ((p[7] === p[6]) && (p[8] === p[6]) && p[6] != undefined) console.log('win');
+        if ((p[4] === p[6]) && (p[2] === p[6]) && p[6] != undefined) console.log('win');
     }
 
     return {
