@@ -4,8 +4,10 @@ console.log('Tic Tac Toe');
 let announce = document.querySelector('#announcer');
 document.querySelector('#reset').addEventListener('click', () => displayController.render());
 
+// Defines who starts the game. Could add logic here to randomise this, but I'm lazy.
 let turn = 'x';
 
+// Factory Function: used to create Players and their related functions.
 const Player = (mark, isHuman) => {
     function play(position) {
         const location = document.getElementById(position);
@@ -18,6 +20,7 @@ const Player = (mark, isHuman) => {
     return { mark, isHuman, play };
 };
 
+// Gameboard Module: controls game logic (saves position of each player, checks for winner, resets game).
 const gameBoard = (() => {
     const positions = {};
 
@@ -65,6 +68,7 @@ const gameBoard = (() => {
     };
 })();
 
+// Display Module: controls DOM manipulation.
 const displayController = (() => {
     const grid = document.querySelector('.gameboard');
 
@@ -115,6 +119,7 @@ const displayController = (() => {
     };
 })();
 
+// Draws the initial board
 displayController.render();
 
 const playerX = Player('x', 'yes');
